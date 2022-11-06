@@ -18,14 +18,17 @@ class AdminAuthController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['status_code' => 400, 'massage' => 'Bad Request']);
         }
+
         $admin = new Admin();
         $admin->name = $req->name;
         $admin->email = $req->email;
         $admin->password = bcrypt($req->password);
         $admin->save();
+
         return response()->json(['status_code' => 200, 'message' => 'Admin created successfully!']);
     }
 
@@ -35,10 +38,10 @@ class AdminAuthController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['status_code' => 400, 'massage' => 'Bad Request']);
         }
-
 
         $admin = Admin::where([['email', $req->email]])->first();
 
@@ -57,6 +60,7 @@ class AdminAuthController extends Controller
 
     public function logout(Request $req)
     {
+
         $req->admin()->currentAccessToken()->delete();
         return response()->json(['status_code' => 200, 'massage' => 'Token deleted successfully!']);
     }
