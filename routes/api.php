@@ -19,7 +19,7 @@ Route::post('/adminregister', [AdminAuthController::class, 'register']);
 
 Route::post('/adminlogin', [AdminAuthController::class, 'login']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::put('product/{id}', [ProductController::class, 'updateProduct']);
 
