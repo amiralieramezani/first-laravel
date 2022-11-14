@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClassResource;
+use App\Http\Resources\StudentResource;
 use App\Models\Classes;
 use App\Models\Students;
 use Illuminate\Http\Request;
@@ -43,6 +45,6 @@ class SchoolController extends Controller
                 'message' => 'student not found'
             ]);
         }
-        return response()->json($student->classes);
+        return new StudentResource($student);
     }
 }
